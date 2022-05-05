@@ -1,0 +1,49 @@
+﻿@model Square.Models.ListPaymentsResponse;
+<div class="text-left">
+    <h1 class="display-4">@Model.Payments.Count Square Payments for reconciliation </h1>
+    <table class="table">
+        <tr>
+            <th>
+                Payment Id
+            </th>
+            <th>
+                Created at
+            </th>
+            <th>
+                Ccy
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+
+        @foreach (var payment in Model.Payments)
+        {
+            <tr>
+                <td>
+                    @payment.Id
+                </td>
+                <td>
+                    @payment.CreatedAt
+                </td>
+                <td>
+                    @payment.AmountMoney.Currency
+                </td>
+                <td>
+                    @payment.AmountMoney.Amount
+                </td>
+                <td>
+                    <a asp-controller="QBO" asp-action="CreatePayment" asp-route-paymentAmount="@payment.AmountMoney.Amount" asp-route-paymentId ="@payment.Id ">
+                        <div>
+                            <input type="submit" name="paymentBtn" value="Save to QBO" />
+                        </div>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
